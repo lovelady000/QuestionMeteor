@@ -34,16 +34,15 @@ class HomeCtrl {
                     return Topics.find({ fieldId: this.getReactively('slField') });
             },
             questions: () => {
-                // if (this.getReactively('slTopic') == 'all' && this.getReactively('slTopic') == 0) {
-                //     return Questions.find({}).fetch();
-                // } else {
-                //     if (this.getReactively('slTopic') == 'all' && this.getReactively('slTopic') != 0) {
-                //         return Questions.find({ $or: [{ question: new RegExp('.*' + this.getReactively('keySearch') + '.*', "i") }, { answer: new RegExp('.*' + this.getReactively('keySearch') + '.*', "i") }] }).fetch();
-                //     } else {
-                //         return Questions.find({ topicId: this.getReactively('slTopic'), $or: [{ question: new RegExp('.*' + this.getReactively('keySearch') + '.*', "i") }, { answer: new RegExp('.*' + this.getReactively('keySearch') + '.*', "i") }] }).fetch();
-                //     }
-                // }
-                return Questions.find({}).fetch();
+                if (this.getReactively('slTopic') == 'all' && this.getReactively('slTopic') == 0) {
+                    return Questions.find({}).fetch();
+                } else {
+                    if (this.getReactively('slTopic') == 'all' && this.getReactively('slTopic') != 0) {
+                        return Questions.find({ $or: [{ question: new RegExp('.*' + this.getReactively('keySearch') + '.*', "i") }, { answer: new RegExp('.*' + this.getReactively('keySearch') + '.*', "i") }] }).fetch();
+                    } else {
+                        return Questions.find({ topicId: this.getReactively('slTopic'), $or: [{ question: new RegExp('.*' + this.getReactively('keySearch') + '.*', "i") }, { answer: new RegExp('.*' + this.getReactively('keySearch') + '.*', "i") }] }).fetch();
+                    }
+                }
                 //return results;
             }
         })
