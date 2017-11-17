@@ -1,0 +1,60 @@
+<div class="form-group row">
+    <form class="form-inline col-lg-12" id="form_add">
+        <div class="form-group">
+            <label for="text">Tên lĩnh vực</label>
+        </div>
+        <div class="form-group mx-sm-3">
+            <label for="name" class="sr-only">Tên lĩnh vực</label>
+            <input type="text" class="form-control" ng-model="$ctrl.field.name" id="name" placeholder="Nhập tên lĩnh vực">
+        </div>
+        <button type="button" id="save" ng-click="$ctrl.addField($ctrl.field)" class="btn btn-primary">Lưu</button>
+    </form>
+</div>
+
+<div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Tên lĩnh vực</th>
+                <th scope="col">Xóa</th>
+                <th scope="col">Sửa</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="field in $ctrl.fields">
+                <th scope="row">{{$index + 1}}</th>
+                <td>{{field.name}}</td>
+                <td>
+                    <button ng-click="$ctrl.delete(field._id)" type="button" class="btn btn-primary delete">Xóa</button>
+                </td>
+                <td>
+                    <button ng-click="$ctrl.edit(field._id)" type="button" class="btn btn-primary change">Sửa</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="modal fade" id="EditFieldModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="nameField" class="sr-only">Tên lĩnh vực</label>
+                    <input type="text" class="form-control" ng-model="$ctrl.fieldEdit.name" id="nameField" placeholder="Nhập tên lĩnh vực">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="saveChange" ng-click="$ctrl.saveChanges()" >Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>

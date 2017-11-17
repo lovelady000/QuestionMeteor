@@ -1,0 +1,84 @@
+<div class="form-group row">
+    <label for="staticEmail" class="col-lg-2 col-form-label">Lĩnh vực</label>
+    <div class="col-lg-4">
+        <select class="form-control" ng-change="$ctrl.selectFieldChange()" id="selectField" ng-model="$ctrl.slField">
+            <option ng-repeat="field in $ctrl.fields" value="{{field._id}}">{{field.name}}</option>
+        </select>
+        <!-- <select required class="form-control" name="groupID" ng-model="post.CategoryID" ng-options="field._id as field.Name for field in $ctrl.fields"></select> -->
+    </div>
+
+</div>
+
+<div class="form-group row">
+    <form class="form-inline col-lg-12" id="form_add">
+        <div class="form-group">
+            <label for="text">Tên chủ đề</label>
+        </div>
+        <div class="form-group mx-sm-3">
+            <label for="name" class="sr-only">Tên chủ đề</label>
+            <input type="text" class="form-control" ng-model="$ctrl.topic.name" id="name" placeholder="Nhập tên chủ đề">
+        </div>
+        <button type="button" ng-click="$ctrl.addField($ctrl.topic)" id="save" class="btn btn-primary">Lưu</button>
+    </form>
+</div>
+
+<div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Tên lĩnh vực</th>
+                <th scope="col">Xóa</th>
+                <th scope="col">Sửa</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="topic in $ctrl.topics">
+                <th scope="row">{{$index + 1}}</th>
+                <td>{{topic.name}}</td>
+                <td>
+                    <button ng-click="$ctrl.delete(topic._id)" type="button" class="btn btn-primary delete">Xóa</button>
+                </td>
+                <td>
+                    <button ng-click="$ctrl.edit(topic._id)" type="button" class="btn btn-primary change">Sửa</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="editTopic" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group row">
+                    <label for="staticEmail" class="col-lg-4 col-form-label">Lĩnh vực</label>
+                    <div class="col-lg-8">
+                        <select class="form-control" ng-change="$ctrl.selectFieldEditChange()" id="selectFieldEdit" ng-model="$ctrl.topicEdit.fieldId">
+                            <option ng-repeat="field in $ctrl.fields" value="{{field._id}}">{{field.name}}</option>
+                        </select>
+                    </div>
+
+                </div>
+                <div class="form-group row">
+                    <label class="col-lg-4 col-form-label">Tên chủ đề</label>
+                    <div class="col-lg-8">
+                        <input type="text" class="form-control" ng-model="$ctrl.topicEdit.name" id="nameField" placeholder="Nhập tên lĩnh vực">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" ng-click="$ctrl.saveChangeEdit($ctrl.topicEdit)" id="saveChange">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
