@@ -10,7 +10,7 @@ class QuestionCtrl {
     slField;
 
 
-    constructor($scope, $reactive) {
+    constructor($scope, $reactive, $sce) {
         $reactive(this).attach($scope);
         $scope.viewModel(this);
         this.helpers({
@@ -34,15 +34,31 @@ class QuestionCtrl {
                 return Questions.find({ topicId: this.getReactively('slTopic') });
             }
         })
+        $scope.ckeditorOption = {
+            //languague: 'vi',
+            // height:'300px',
+        };
+        CKEDITOR.replace('answer');
+        CKEDITOR.replace('answerEdit');
+        // CKEDITOR.replace('textarea', {
+        //     height: 260
+        // });
+        $scope.renderHtml = function (html_code) {
+            return $sce.trustAsHtml(html_code);
+        };
     }
 
     addQuestion(newItem) {
         Questions.insert({
             question: newItem.question,
-            answer: newItem.answer,
+            answer: CKEDITOR.instances.answer.getData(),
             topicId: this.slTopic
         });
         this.item = {};
+        CKEDITOR.instances.answer.setData('')
+        //alert(CKEDITOR.instances.answer.getData());
+        //console.log(this.item);
+        //console.log(newItem)
     }
 
     selectFieldChange() {
@@ -61,7 +77,7 @@ class QuestionCtrl {
 
         this.arrTopic = Topics.find({ fieldId: this.slEditField }).fetch();
 
-
+        CKEDITOR.instances.answerEdit.setData(this.questionEdit.answer);
         $('#editTopic').modal('show');
     }
 
@@ -69,7 +85,7 @@ class QuestionCtrl {
         Questions.update(questionEdit._id, {
             $set: {
                 question: questionEdit.question,
-                answer: questionEdit.answer,
+                answer: CKEDITOR.instances.answerEdit.getData(),
                 topicId: questionEdit.topicId
             }
         });
@@ -78,11 +94,11 @@ class QuestionCtrl {
     selectFieldEditChange() {
         this.arrTopic = Topics.find({ fieldId: this.slEditField }).fetch();
     }
+
 }
 
 export default angular.module('question', [
     angularMeteor,
-
 ])
     .component('question', {
         templateUrl: 'imports/components/question/question.html',

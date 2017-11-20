@@ -6,6 +6,7 @@ import question from '../imports/components/question/question';
 import home from '../imports/components/home/home';
 import uiRouter from 'angular-ui-router';
 import { Meteor } from 'meteor/meteor';
+// import ckeditor from "ckeditor"
 
 angular.module('app', [
   angularMeteor,

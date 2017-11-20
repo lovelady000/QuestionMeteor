@@ -13,8 +13,8 @@ class HomeCtrl {
     keySearch = '';
     strKeyword = '';
 
-    constructor($scope, $reactive) {
-        
+    constructor($scope, $reactive,$sce) {
+
         $reactive(this).attach($scope);
         $scope.viewModel(this);
         this.helpers({
@@ -46,6 +46,9 @@ class HomeCtrl {
                 //return results;
             }
         })
+        $scope.renderHtml = function (html_code) {
+            return $sce.trustAsHtml(html_code);
+        };
     }
 
     search() {

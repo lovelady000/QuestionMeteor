@@ -53,7 +53,7 @@
 
         <div id="collapse{{$index + 1}}" class="collapse" role="tabpanel" aria-labelledby="heading{{$index + 1}}" data-parent="#accordion">
             <div class="card-body">
-                {{q.answer}}
+                <div ng-bind-html="renderHtml(q.answer)"></div>
             </div>
         </div>
     </div>
