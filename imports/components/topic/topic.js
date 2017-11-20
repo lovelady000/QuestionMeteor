@@ -4,6 +4,7 @@ import template from './topic.html';
 import uiRouter from 'angular-ui-router';
 import { Fields } from '../../api/fields';
 import { Topics } from '../../api/topics';
+import { Questions } from '../../api/questions';
 
 class TopicCtrl {
     slField;
@@ -41,7 +42,11 @@ class TopicCtrl {
     }
 
     delete(id) {
-        if (confirm('Bạn chắc chắn xóa ?')) {
+        if (confirm('Các bài viết thuộc chủ đề cũng sẽ bị xóa ?Bạn chắc chắn xóa ?')) {
+            let qs = Questions.find({ topicId: id }).fetch();
+            qs.forEach(elm => {
+                Questions.remove(elm._id);
+            });
             Topics.remove(id);
         }
     }

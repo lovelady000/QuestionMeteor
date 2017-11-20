@@ -2,6 +2,8 @@ import angular from 'angular';
 import angularMeteor from 'angular-meteor';
 import template from './field.html';
 import { Fields } from '../../api/fields';
+import { Topics } from '../../api/topics';
+import { Questions } from '../../api/questions';
 import uiRouter from 'angular-ui-router';
 
 class FieldCtrl {
@@ -23,7 +25,19 @@ class FieldCtrl {
     this.field = {};
   }
   delete(id) {
-    if (confirm('Bạn chắc chắn xóa ?')) {
+    if (confirm('Các chủ đề và bài viết thuộc lĩnh vực cũng sẽ bị xóa bỏ ? Bạn chắc chắn xóa ? ')) {
+      //
+      let ts = Topics.find({ fieldId: id }).fetch()
+      ts.forEach(element => {
+        console.log(element._id);
+
+        let qs = Questions.find({ topicId: element._id }).fetch();
+        qs.forEach(elm => {
+          Questions.remove(elm._id);
+        });
+        Topics.remove(element._id);
+      });
+
       Fields.remove(id);
     }
   }

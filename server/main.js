@@ -11,11 +11,13 @@ Meteor.startup(() => {
 });
 Meteor.onConnection(function (connection) {
     let ip = ["127.0.0.1","14.162.217.59", "117.4.255.74"];
+    console.log(ip.indexOf(connection.clientAddress));
     if (ip.indexOf(connection.clientAddress) == -1) {
         console.log('band ip');
         connection.close();
     } else {
-        //console.log(connection.clientAddress);
+
+        console.log(connection.clientAddress);
         //connection.close();
 
     }
